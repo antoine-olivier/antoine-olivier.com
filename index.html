@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Antoine Olivier, independent researcher: verifiable results</title>
+<meta name="description" content="Computational results by Antoine Olivier listed in public record tables (Cohn, Brouwer), each with its proof link, date and the role of AI.">
+<style>
+  @font-face { font-family: "Source Serif 4"; src: url(fonts/sserif-400.ttf) format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Source Serif 4"; src: url(fonts/sserif-400i.ttf) format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Source Serif 4"; src: url(fonts/sserif-500.ttf) format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Source Serif 4"; src: url(fonts/sserif-600.ttf) format("truetype"); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Source Serif 4"; src: url(fonts/sserif-700.ttf) format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: "JetBrains Mono"; src: url(fonts/jbm-400.ttf) format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "JetBrains Mono"; src: url(fonts/jbm-500.ttf) format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
+  :root {
+    --ground: #f6f8fa;
+    --sheet: #ffffff;
+    --ink: #121d2a;
+    --muted: #44546a;
+    --rule: #d3dbe4;
+    --accent: #0a6464;
+    --accent-ink: #ffffff;
+    --pending: #8a5a00;
+    --serif: "Source Serif 4", "Charter", "Georgia", serif;
+    --display: "Source Serif 4", "Charter", "Georgia", serif;
+    --mono: "JetBrains Mono", "Consolas", monospace;
+    --tag: 9.5rem;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ground); color: var(--ink); -webkit-text-size-adjust: 100%; }
+  body { margin: 0; font: 400 1.0625rem/1.6 var(--serif); }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .sheet { max-width: 68rem; margin: 0 auto; padding: 3.5rem 2.5rem 4rem; background: var(--sheet); min-height: 100vh; border-inline: 1px solid var(--rule); }
+
+  /* masthead */
+  .mast { display: grid; grid-template-columns: var(--tag) 1fr; column-gap: 2rem; align-items: end; padding-bottom: 1.75rem; border-bottom: 2px solid var(--ink); }
+  .mast .who { grid-column: 2; }
+  h1 { font: 600 clamp(2.4rem, 5vw, 3.6rem)/1.02 var(--display); letter-spacing: -0.02em; margin: 0; }
+  .role { font: 400 1.25rem/1.3 var(--display); color: var(--muted); margin: 0.4rem 0 0; }
+  .contact { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; margin: 1.1rem 0 0; padding: 0; list-style: none; font: 0.875rem/1.4 var(--mono); }
+  .contact span { color: var(--muted); }
+
+  /* field rows: the signature tag margin */
+  .row { display: grid; grid-template-columns: var(--tag) minmax(0, 1fr); column-gap: 2rem; padding: 0.55rem 0; }
+  .tag { font: 500 0.75rem/1.9 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.15rem; }
+  .val > p { margin: 0 0 0.6rem; max-width: 66ch; }
+  .val > p:last-child { margin-bottom: 0; }
+
+  .scope { padding-top: 1.5rem; }
+  .scope .val p { font-size: 1.1875rem; line-height: 1.55; }
+
+  /* ledger summary */
+  .ledger { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+  .ledger li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+  .ledger .n { font: 600 1.75rem/1 var(--display); text-align: right; font-variant-numeric: tabular-nums lining-nums; }
+  .ledger .n.small { font-size: 1.75rem; }
+  .ledger b { font-weight: 600; }
+  .ledger .src { display: block; font-size: 0.9375rem; color: var(--muted); }
+  .also { font-size: 0.9375rem; color: var(--muted); margin: 0.8rem 0 0; max-width: 66ch; }
+  .bounds .old { font-size: 0.8125rem; margin-left: 0.4rem; }
+  .checked { font: 0.8125rem/1.5 var(--mono); color: var(--muted); margin-top: 0.8rem; }
+
+  /* entries */
+  .entry { margin-top: 3.25rem; padding-top: 1.25rem; border-top: 2px solid var(--ink); scroll-margin-top: 1rem; }
+  .entry h2 { font: 600 1.75rem/1.2 var(--display); letter-spacing: -0.01em; margin: 0 0 0.5rem; max-width: 34em; text-wrap: balance; }
+  .entry-head { display: grid; grid-template-columns: var(--tag) minmax(0, 1fr); column-gap: 2rem; }
+  .entry-head .id { font: 500 0.75rem/2.6 var(--mono); letter-spacing: 0.08em; color: var(--muted); }
+  .status { display: inline-flex; align-items: baseline; gap: 0.5rem; }
+  .mark { display: inline-block; width: 0.6rem; height: 0.6rem; background: var(--accent); flex: none; transform: translateY(-0.05rem); }
+  .mark.open { background: none; border: 1.5px solid var(--pending); }
+  q { font-style: italic; quotes: "\201C" "\201D"; }
+  blockquote { margin: 0; padding: 0 0 0 1rem; border-left: 1px solid var(--ink); max-width: 64ch; font-style: italic; }
+
+  /* data tables */
+  .data { overflow-x: auto; }
+  table { border-collapse: collapse; font: 0.875rem/1.45 var(--mono); font-variant-numeric: tabular-nums; min-width: 34rem; }
+  .cap { font-size: 0.875rem; line-height: 1.5; color: var(--muted); margin: 0 0 0.5rem; max-width: 60ch; }
+  th { font: 500 0.75rem/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0.35rem 1rem 0.35rem 0; border-bottom: 1px solid var(--ink); white-space: nowrap; }
+  td { padding: 0.3rem 1rem 0.3rem 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+  td.num, th.num { text-align: right; }
+  td a { text-decoration: underline dotted; text-underline-offset: 0.2em; }
+  td a:hover, td a:focus-visible { text-decoration: underline; }
+  .data:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .old { color: var(--muted); }
+  .gain { display: flex; align-items: center; gap: 0.6rem; }
+  .gain i { display: block; height: 0.5rem; background: var(--accent); width: calc(var(--g) * 6rem); }
+  .gain-scale { display: flex; justify-content: space-between; width: 6rem; font-size: 0.6875rem; color: var(--muted); }
+  .bounds { display: grid; grid-template-columns: repeat(auto-fill, minmax(18.5rem, 1fr)); gap: 0 1.5rem; margin: 0; padding: 0; list-style: none; font: 0.9375rem/1.4 var(--mono); }
+  .bounds li { white-space: nowrap; padding: 0.45rem 0; border-bottom: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+
+  .pending h2 { color: var(--ink); }
+  .slots { list-style: none; margin: 0; padding: 0; }
+  .slots li { display: grid; grid-template-columns: 1.2rem minmax(0, 1fr); gap: 0.5rem; padding: 0.55rem 0; border-bottom: 1px solid var(--rule); max-width: 66ch; }
+  .slots .mark { margin-top: 0.55rem; }
+  .slots b { font-weight: 600; }
+
+  footer { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--rule); font: 0.8125rem/1.6 var(--mono); color: var(--muted); }
+
+  @media (max-width: 760px) {
+    :root { --tag: 0; }
+    .sheet { padding: 1.75rem 1.25rem 3rem; border: 0; }
+    .mast, .row, .entry-head { grid-template-columns: minmax(0, 1fr); }
+    .mast .who, .contact { grid-column: 1; }
+    .tag, .entry-head .id { padding: 0; line-height: 1.6; }
+    .row { padding: 0.5rem 0; }
+    .scope .val p { font-size: 1.0625rem; }
+    .ledger li { grid-template-columns: 3rem minmax(0, 1fr); }
+    .ledger .n { font-size: 1.5rem; }
+    .entry { margin-top: 2.5rem; }
+    .entry h2 { font-size: 1.5rem; }
+  }
+  @media print {
+    html, .sheet { background: #fff; border: 0; }
+    a { color: var(--ink); }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <header class="mast">
+    <div class="who">
+      <h1>Antoine Olivier</h1>
+      <p class="role">Independent researcher</p>
+    </div>
+    <ul class="contact">
+      <li><span>Email</span> <a href="mailto:antoineolivier@keplercircle.org">antoineolivier@keplercircle.org</a></li>
+      <li><span>GitHub</span> <a href="https://github.com/antoine-olivier">antoine-olivier</a></li>
+      <li><span>ORCID</span> pending</li>
+    </ul>
+  </header>
+
+  <section class="row scope" aria-label="Scope">
+    <div class="tag">Scope</div>
+    <div class="val">
+      <p>Computational results in coding theory and discrete geometry, obtained with AI agents under my direction and checked before submission. Each entry links to the public table that lists the value and credits it.</p>
+    </div>
+  </section>
+
+  <section class="row" aria-labelledby="ledger-tag">
+    <div class="tag" id="ledger-tag">Record</div>
+    <div class="val">
+      <ul class="ledger">
+        <li><span class="n">10</span><span><a href="#cohn"><b>Spherical codes</b> in dimensions 11 to 17</a><span class="src"><a href="https://spherical-codes.org/">Henry Cohn’s table of spherical codes</a>, credited “Antoine Olivier, 2026.”</span></span></li>
+        <li><span class="n">10</span><span><a href="#brouwer"><b>Improved lower bounds</b> for constant-weight binary codes</a><span class="src"><a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, credit line “Ol”</span></span></li>
+      </ul>
+      <p class="also"><a href="#kappa">Reproducibility contribution</a>: selected checks on four integer-multiplication pull requests, credited in CONTRIBUTORS.md; no new κ.</p>
+      <p class="checked">Checked against the public tables on 20 October 2026.</p>
+    </div>
+  </section>
+
+  <article class="entry" id="cohn" aria-labelledby="cohn-title">
+    <div class="entry-head"><div class="id">Entry 1</div><h2 id="cohn-title">Ten improved spherical codes in dimensions 11 to 17</h2></div>
+
+    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Listed in <a href="https://spherical-codes.org/">Henry Cohn’s table of spherical codes</a>, each row credited <q>Antoine Olivier, 2026.</q></span></p></div></div>
+
+    <div class="row"><div class="tag">Date</div><div class="val"><p>Submitted 19 October 2026. Credit read in the table on 20 October 2026.</p></div></div>
+
+    <div class="row"><div class="tag">Result</div><div class="val">
+      <p>A spherical code is a set of N points on the unit sphere in dimension d; the goal is to keep the largest cosine between any two points as small as possible. For these ten (d, N) pairs, the new codes improve on the table values read on 19 October 2026, before submission.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">Data</div><div class="val">
+      <p class="cap" id="cohn-cap">New maximum cosine (certified upper bound, 12 decimals), table value before submission, and improvement (rounded; bar on a log scale from 10<sup>−10</sup> to 10<sup>−4</sup>).</p>
+      <div class="data" role="region" aria-labelledby="cohn-title" tabindex="0">
+      <table aria-labelledby="cohn-title" aria-describedby="cohn-cap">
+        <thead><tr><th scope="col" class="num">d</th><th scope="col" class="num">N</th><th scope="col">New max cosine</th><th scope="col">Before</th><th scope="col">Improvement</th></tr></thead>
+        <tbody>
+          <tr><td class="num">11</td><td class="num"><a href="https://spherical-codes.org/data/11/82" aria-label="d = 11, N = 82 in Cohn’s table">82</a></td><td>0.263018342364</td><td class="old">0.263018878676</td><td><span class="gain"><i style="--g:.62"></i>5.4e-7</span></td></tr>
+          <tr><td class="num">12</td><td class="num"><a href="https://spherical-codes.org/data/12/66" aria-label="d = 12, N = 66 in Cohn’s table">66</a></td><td>0.214718112242</td><td class="old">0.214727052210</td><td><span class="gain"><i style="--g:.82"></i>8.9e-6</span></td></tr>
+          <tr><td class="num">12</td><td class="num"><a href="https://spherical-codes.org/data/12/92" aria-label="d = 12, N = 92 in Cohn’s table">92</a></td><td>0.258276397340</td><td class="old">0.258374597677</td><td><span class="gain"><i style="--g:1"></i>9.8e-5</span></td></tr>
+          <tr><td class="num">13</td><td class="num"><a href="https://spherical-codes.org/data/13/72" aria-label="d = 13, N = 72 in Cohn’s table">72</a></td><td>0.205422579377</td><td class="old">0.205422584282</td><td><span class="gain"><i style="--g:.28"></i>4.9e-9</span></td></tr>
+          <tr><td class="num">13</td><td class="num"><a href="https://spherical-codes.org/data/13/95" aria-label="d = 13, N = 95 in Cohn’s table">95</a></td><td>0.244097860377</td><td class="old">0.244179109624</td><td><span class="gain"><i style="--g:.99"></i>8.1e-5</span></td></tr>
+          <tr><td class="num">14</td><td class="num"><a href="https://spherical-codes.org/data/14/76" aria-label="d = 14, N = 76 in Cohn’s table">76</a></td><td>0.189882980940</td><td class="old">0.189882981278</td><td><span class="gain"><i style="--g:.09"></i>3.4e-10</span></td></tr>
+          <tr><td class="num">14</td><td class="num"><a href="https://spherical-codes.org/data/14/80" aria-label="d = 14, N = 80 in Cohn’s table">80</a></td><td>0.195566522972</td><td class="old">0.195566565102</td><td><span class="gain"><i style="--g:.44"></i>4.2e-8</span></td></tr>
+          <tr><td class="num">15</td><td class="num"><a href="https://spherical-codes.org/data/15/75" aria-label="d = 15, N = 75 in Cohn’s table">75</a></td><td>0.168255719871</td><td class="old">0.168258837686</td><td><span class="gain"><i style="--g:.75"></i>3.1e-6</span></td></tr>
+          <tr><td class="num">17</td><td class="num"><a href="https://spherical-codes.org/data/17/83" aria-label="d = 17, N = 83 in Cohn’s table">83</a></td><td>0.149970576801</td><td class="old">0.149982620206</td><td><span class="gain"><i style="--g:.85"></i>1.2e-5</span></td></tr>
+          <tr><td class="num">17</td><td class="num"><a href="https://spherical-codes.org/data/17/84" aria-label="d = 17, N = 84 in Cohn’s table">84</a></td><td>0.149993159821</td><td class="old">0.149995256047</td><td><span class="gain"><i style="--g:.72"></i>2.1e-6</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div></div>
+
+    <div class="row"><div class="tag">Method</div><div class="val">
+      <p>Local polishing by sequential linear programming. Eight codes start from entries the table marked as needing more optimization; (12, 92) and (13, 95) start from the codes with one more point by Ilmari Vahteristo and Luke Granto, minus one point.</p>
+      <p>Coordinates were scaled by 2<sup>52</sup> and rounded to integers. Two independent programs (Python and PARI/GP) then checked in exact integer arithmetic that the largest cosine, which does not depend on scale, is at most the value shown. These are computational records, not proofs of optimality.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>Computed in October 2026 with Claude Opus 5.5 (Anthropic) working as a coding agent in Claude Code under my direction. I take responsibility for the submission.</blockquote></div></div>
+  </article>
+
+  <article class="entry" id="brouwer" aria-labelledby="brouwer-title">
+    <div class="entry-head"><div class="id">Entry 2</div><h2 id="brouwer-title">Ten improved lower bounds for constant-weight binary codes</h2></div>
+
+    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Listed in <a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, credit line <q>Ol: Antoine Olivier, emails 2026-10-10, 2026-10-19, with 2+10 new codes.</q></span></p></div></div>
+
+    <div class="row"><div class="tag">Date</div><div class="val"><p>Sent on 10 and 19 October 2026 and added by the maintainer. Ten of the twelve codes sent remain credited in the table on 20 October 2026.</p></div></div>
+
+    <div class="row"><div class="tag">Result</div><div class="val">
+      <p>A(n, d, w) is the largest number of binary words of length n and weight w with pairwise Hamming distance at least d. Each line below gives the new lower bound and the value the table listed when the code was sent.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">Data</div><div class="val">
+      <ul class="bounds" aria-label="Lower bounds credited Ol in the table, with the previous value">
+        <li>A(22, 6, 10) ≥ 2184 <span class="old">was 2183</span></li>
+        <li>A(27, 6, 11) ≥ 19344 <span class="old">was 19305</span></li>
+        <li>A(26, 8, 11) ≥ 2044 <span class="old">was 2042</span></li>
+        <li>A(27, 8, 9) ≥ 1044 <span class="old">was 1029</span></li>
+        <li>A(37, 8, 8) ≥ 2846 <span class="old">was 2845</span></li>
+        <li>A(40, 8, 8) ≥ 3687 <span class="old">was 3683</span></li>
+        <li>A(28, 10, 14) ≥ 817 <span class="old">was 814</span></li>
+        <li>A(30, 10, 11) ≥ 514 <span class="old">was 512</span></li>
+        <li>A(30, 10, 13) ≥ 940 <span class="old">was 936</span></li>
+        <li>A(32, 10, 9) ≥ 307 <span class="old">was 305</span></li>
+      </ul>
+    </div></div>
+
+    <div class="row"><div class="tag">Method</div><div class="val">
+      <p>Codes start from the table’s own code for the same cell and enlarge it. An integer linear program replaces a group of neighbouring words with a larger group; for A(27, 6, 11), 39 words could be added to the table’s code without removing any. Each file was checked by exact computation of length, weight, distinct words and minimum distance before sending.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>This work was carried out with Claude Opus 5.5 (Anthropic) in Claude Code.</blockquote></div></div>
+  </article>
+
+  <article class="entry" id="kappa" aria-labelledby="kappa-title">
+    <div class="entry-head"><div class="id">Reproducibility</div><h2 id="kappa-title">Reproduction checks on four integer-multiplication pull requests</h2></div>
+
+    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Credited in <a href="https://github.com/CrocSwap/integer-mult-bounds/blob/main/CONTRIBUTORS.md">CONTRIBUTORS.md</a> of the community project CrocSwap/integer-mult-bounds, for <a href="https://github.com/CrocSwap/integer-mult-bounds/pull/214">pull request #214</a>.</span></p></div></div>
+
+    <div class="row"><div class="tag">Date</div><div class="val"><p>Opened 9 October 2026; closed without merging on 14 October 2026, with the credit kept.</p></div></div>
+
+    <div class="row"><div class="tag">Result</div><div class="val">
+      <p>The project improves the exponent κ in an O(n (log n)<sup>1−κ</sup>) bound for integer multiplication, within its stated conditional framework. I reran selected verification programs from four pull requests at recorded commits. Checks for #207 and #197 and a diagnostic for #199 reproduced. For #202, one check passed and another failed on a hash mismatch documented in the report. These runs do not validate the full theoretical framework. No new κ value.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>I did this with help from Claude (Anthropic) agents; the runs were done locally.</blockquote></div></div>
+  </article>
+
+  <section class="entry pending" id="next" aria-labelledby="next-title">
+    <div class="entry-head"><div class="id">In progress</div><h2 id="next-title">Not yet public</h2></div>
+    <div class="row"><div class="tag">Slots</div><div class="val">
+      <ul class="slots">
+        <li><span class="mark open" aria-hidden="true"></span><span><b>OEIS.</b> New terms for sequences A321911 and A277203, computed and awaiting submission.</span></li>
+        <li><span class="mark open" aria-hidden="true"></span><span><b>Variable stars from TESS.</b> A research note and its data archive; Zenodo DOI to come.</span></li>
+        <li><span class="mark open" aria-hidden="true"></span><span><b>ORCID.</b> Identifier to come.</span></li>
+      </ul>
+    </div></div>
+  </section>
+
+  <footer>Last checked against the public tables on 20 October 2026.</footer>
+</main>
+</body>
+</html>
