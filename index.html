@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Antoine Olivier, independent researcher: verifiable results</title>
-<meta name="description" content="Computational results by Antoine Olivier listed in public record tables (Cohn, Brouwer), each with its proof link, date and the role of AI.">
+<meta name="description" content="Results by Antoine Olivier in coding theory, discrete geometry, cluster chemistry and variable stars, with public tables, Zenodo data and the role of AI.">
 <style>
   @font-face { font-family: "Source Serif 4"; src: url(fonts/sserif-400.ttf) format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
   @font-face { font-family: "Source Serif 4"; src: url(fonts/sserif-400i.ttf) format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
@@ -48,6 +48,7 @@
   /* field rows: the signature tag margin */
   .row { display: grid; grid-template-columns: var(--tag) minmax(0, 1fr); column-gap: 2rem; padding: 0.55rem 0; }
   .tag { font: 500 0.75rem/1.9 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.15rem; }
+  h2.tag { margin: 0; }
   .val > p { margin: 0 0 0.6rem; max-width: 66ch; }
   .val > p:last-child { margin-bottom: 0; }
 
@@ -58,12 +59,17 @@
   .ledger { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
   .ledger li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
   .ledger .n { font: 600 1.75rem/1 var(--display); text-align: right; font-variant-numeric: tabular-nums lining-nums; }
-  .ledger .n.small { font-size: 1.75rem; }
+  .ledger .wait .n { font-weight: 400; color: var(--muted); }
   .ledger b { font-weight: 600; }
   .ledger .src { display: block; font-size: 0.9375rem; color: var(--muted); }
+  .ledger .src .mark, .checked .mark { margin-right: 0.45rem; }
+  .checked .key { display: inline-flex; align-items: baseline; margin-right: 1.25rem; }
+  code { font: 0.9em var(--mono); }
+  .tag .sym { text-transform: none; }
   .also { font-size: 0.9375rem; color: var(--muted); margin: 0.8rem 0 0; max-width: 66ch; }
   .bounds .old { font-size: 0.8125rem; margin-left: 0.4rem; }
   .checked { font: 0.8125rem/1.5 var(--mono); color: var(--muted); margin-top: 0.8rem; }
+  .checked.key-top { margin: 0 0 0.6rem; }
 
   /* entries */
   .entry { margin-top: 3.25rem; padding-top: 1.25rem; border-top: 2px solid var(--ink); scroll-margin-top: 1rem; }
@@ -89,11 +95,9 @@
   .old { color: var(--muted); }
   .gain { display: flex; align-items: center; gap: 0.6rem; }
   .gain i { display: block; height: 0.5rem; background: var(--accent); width: calc(var(--g) * 6rem); }
-  .gain-scale { display: flex; justify-content: space-between; width: 6rem; font-size: 0.6875rem; color: var(--muted); }
   .bounds { display: grid; grid-template-columns: repeat(auto-fill, minmax(18.5rem, 1fr)); gap: 0 1.5rem; margin: 0; padding: 0; list-style: none; font: 0.9375rem/1.4 var(--mono); }
   .bounds li { white-space: nowrap; padding: 0.45rem 0; border-bottom: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
 
-  .pending h2 { color: var(--ink); }
   .slots { list-style: none; margin: 0; padding: 0; }
   .slots li { display: grid; grid-template-columns: 1.2rem minmax(0, 1fr); gap: 0.5rem; padding: 0.55rem 0; border-bottom: 1px solid var(--rule); max-width: 66ch; }
   .slots .mark { margin-top: 0.55rem; }
@@ -113,6 +117,10 @@
     .ledger .n { font-size: 1.5rem; }
     .entry { margin-top: 2.5rem; }
     .entry h2 { font-size: 1.5rem; }
+    table { min-width: 0; }
+    .data { background: linear-gradient(var(--sheet), var(--sheet)) right / 1rem 100% no-repeat local, linear-gradient(to left, rgba(18,29,42,0.24), rgba(18,29,42,0)) right / 1.25rem 100% no-repeat scroll; }
+    .gain i { width: calc(var(--g) * 3rem); }
+    .contact a { display: inline-block; padding: 0.2rem 0; }
   }
   @media print {
     html, .sheet { background: #fff; border: 0; }
@@ -129,130 +137,219 @@
       <p class="role">Independent researcher</p>
     </div>
     <ul class="contact">
-      <li><span>Email</span> <a href="mailto:antoineolivier@keplercircle.org">antoineolivier@keplercircle.org</a></li>
+      <li><span>Email</span> <a href="mailto:antoine.olivier@keplercircle.org">antoine.olivier@keplercircle.org</a></li>
       <li><span>GitHub</span> <a href="https://github.com/antoine-olivier">antoine-olivier</a></li>
-      <li><span>ORCID</span> pending</li>
+      <li><span>ORCID</span> <a href="https://orcid.org/0009-0009-9710-3682">0009-0009-9710-3682</a></li>
     </ul>
   </header>
 
-  <section class="row scope" aria-label="Scope">
-    <div class="tag">Scope</div>
+  <section class="row scope" aria-labelledby="scope-tag">
+    <h2 class="tag" id="scope-tag">Scope</h2>
     <div class="val">
-      <p>Computational results in coding theory and discrete geometry, obtained with AI agents under my direction and checked before submission. Each entry links to the public table that lists the value and credits it.</p>
+      <p>Computational results in coding theory, discrete geometry, cluster chemistry and variable stars, obtained with AI agents under my direction and checked before submission. Each entry links to the public table that lists it, or to a Zenodo archive with the files and the programs that check them.</p>
     </div>
   </section>
 
   <section class="row" aria-labelledby="ledger-tag">
-    <div class="tag" id="ledger-tag">Record</div>
+    <h2 class="tag" id="ledger-tag">Results</h2>
     <div class="val">
+      <p class="checked key-top"><span class="key"><span class="mark" aria-hidden="true"></span>listed in a public table or approved by its editors</span><span class="key"><span class="mark open" aria-hidden="true"></span>sent or archived, not listed yet</span></p>
       <ul class="ledger">
-        <li><span class="n">10</span><span><a href="#cohn"><b>Spherical codes</b> in dimensions 11 to 17</a><span class="src"><a href="https://spherical-codes.org/">Henry Cohn’s table of spherical codes</a>, credited “Antoine Olivier, 2026.”</span></span></li>
-        <li><span class="n">10</span><span><a href="#brouwer"><b>Improved lower bounds</b> for constant-weight binary codes</a><span class="src"><a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, credit line “Ol”</span></span></li>
+        <li><span class="n">12</span><span><a href="#brouwer"><b>Improved lower bounds</b> for constant-weight binary codes</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, cells marked <code>Ol</code></span></span></li>
+        <li><span class="n">6</span><span><a href="#cohn"><b>Spherical codes</b> in dimensions 11 to 14</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://spherical-codes.org/">Henry Cohn’s table of spherical codes</a>, credited “Antoine Olivier, 2026.”</span></span></li>
+        <li class="wait"><span class="n">6</span><span><a href="#ccd"><b>Atomic clusters</b> with lower energy than the Cambridge Cluster Database</a><span class="src"><span class="mark open" aria-hidden="true"></span>Sent to the database authors on 22 October 2026, not listed yet</span></span></li>
+        <li class="wait"><span class="n">5</span><span><a href="#stars"><b>Variable stars</b> missing from VSX, with their periods and types</a><span class="src"><span class="mark open" aria-hidden="true"></span>Data archive on Zenodo, not yet submitted to VSX</span></span></li>
+        <li><span class="n">5</span><span><a href="#oeis"><b>New terms</b> of OEIS sequences A277203 and A321911</a><span class="src"><span class="mark" aria-hidden="true"></span>Approved by the OEIS editors on 27 and 28 October 2026</span></span></li>
       </ul>
-      <p class="also"><a href="#kappa">Reproducibility contribution</a>: selected checks on four integer-multiplication pull requests, credited in CONTRIBUTORS.md; no new κ.</p>
-      <p class="checked">Checked against the public tables on 20 October 2026.</p>
+      <p class="also"><a href="#checks">Checks of other people’s work</a>: reruns of four integer-multiplication pull requests, credited in CONTRIBUTORS.md, and an input error in an exoplanet catalogue, corrected by its author.</p>
+      <p class="also">Since beaten: a lower bound of 500008 for the kissing number in dimension 37, archived at <a href="https://doi.org/10.5281/zenodo.23569153">doi:10.5281/zenodo.23569153</a>. It was built from Lin’s configuration by replacing three of its supports, which added 192 vectors in all. On 31 October 2026, <a href="https://cohn.mit.edu/kissing-numbers">Henry Cohn’s kissing-number table</a> lists 505503 (Kravatskiy).</p>
+      <p class="checked">Brouwer, Cohn, Cambridge and OEIS pages and CONTRIBUTORS.md read on 31 October 2026.</p>
     </div>
   </section>
 
-  <article class="entry" id="cohn" aria-labelledby="cohn-title">
-    <div class="entry-head"><div class="id">Entry 1</div><h2 id="cohn-title">Ten improved spherical codes in dimensions 11 to 17</h2></div>
+  <article class="entry" id="brouwer" aria-labelledby="brouwer-title">
+    <div class="entry-head"><div class="id">Entry 1</div><h2 id="brouwer-title">Twelve improved lower bounds for constant-weight binary codes</h2></div>
 
-    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Listed in <a href="https://spherical-codes.org/">Henry Cohn’s table of spherical codes</a>, each row credited <q>Antoine Olivier, 2026.</q></span></p></div></div>
+    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Listed in <a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, cells marked <code>Ol</code> and credited to Antoine Olivier.</span></p></div></div>
 
-    <div class="row"><div class="tag">Date</div><div class="val"><p>Submitted 19 October 2026. Credit read in the table on 20 October 2026.</p></div></div>
+    <div class="row"><div class="tag">Date</div><div class="val"><p>Sent on 10, 19 and 22 October 2026 and added by the maintainer. Three other bounds I sent were accepted, then beaten by other authors (listed below).</p></div></div>
 
     <div class="row"><div class="tag">Result</div><div class="val">
-      <p>A spherical code is a set of N points on the unit sphere in dimension d; the goal is to keep the largest cosine between any two points as small as possible. For these ten (d, N) pairs, the new codes improve on the table values read on 19 October 2026, before submission.</p>
+      <p>A(n, d, w) is the largest number of binary words of length n and weight w with pairwise Hamming distance at least d. Each line gives the new lower bound and the value the table listed when the code was sent.</p>
     </div></div>
 
     <div class="row"><div class="tag">Data</div><div class="val">
-      <p class="cap" id="cohn-cap">New maximum cosine (certified upper bound, 12 decimals), table value before submission, and improvement (rounded; bar on a log scale from 10<sup>−10</sup> to 10<sup>−4</sup>).</p>
-      <div class="data" role="region" aria-labelledby="cohn-title" tabindex="0">
+      <ul class="bounds" aria-label="Lower bounds credited Ol in the table, with the previous value">
+        <li>A(22, 6, 10) ≥ 2184 <span class="old">was 2183</span></li>
+        <li>A(25, 6, 11) ≥ 8720 <span class="old">was 8718</span></li>
+        <li>A(26, 8, 11) ≥ 2044 <span class="old">was 2042</span></li>
+        <li>A(27, 6, 11) ≥ 19344 <span class="old">was 19305</span></li>
+        <li>A(27, 8, 9) ≥ 1044 <span class="old">was 1029</span></li>
+        <li>A(27, 8, 11) ≥ 2422 <span class="old">was 2421</span></li>
+        <li>A(28, 8, 11) ≥ 3791 <span class="old">was 3785</span></li>
+        <li>A(28, 10, 14) ≥ 817 <span class="old">was 814</span></li>
+        <li>A(30, 10, 11) ≥ 514 <span class="old">was 512</span></li>
+        <li>A(30, 10, 13) ≥ 940 <span class="old">was 936</span></li>
+        <li>A(32, 10, 9) ≥ 307 <span class="old">was 305</span></li>
+        <li>A(40, 8, 8) ≥ 3687 <span class="old">was 3683</span></li>
+      </ul>
+      <p class="also">Since beaten: A(29, 8, 8) ≥ 1062 (now 1064, Hu), A(33, 8, 8) ≥ 1806 (now 1852, Lin), A(37, 8, 8) ≥ 2846 (now 2860, Lin).</p>
+      <p class="also">Code files and checking programs: <a href="https://doi.org/10.5281/zenodo.23776838">doi:10.5281/zenodo.23776838</a>.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">Method</div><div class="val">
+      <p>Each code starts from the table’s own code for the same cell and enlarges it. An integer linear program swaps a group of neighbouring words for a group one word larger; for A(27, 6, 11), 39 words could be added to the table’s code without removing any.</p>
+      <p>Two programs written separately check length, weight, distinct words and every pairwise distance in exact arithmetic. One was written with Claude, the other by DeepSeek V4.1 Flash from the problem statement alone. Both accepted all the files on 29 October 2026.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>The codes and the first checker were produced with Claude Opus 5.5 (Anthropic) in Claude Code under my direction.</blockquote></div></div>
+  </article>
+
+  <article class="entry" id="cohn" aria-labelledby="cohn-title">
+    <div class="entry-head"><div class="id">Entry 2</div><h2 id="cohn-title">Six spherical codes in dimensions 11 to 14</h2></div>
+
+    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Listed in <a href="https://spherical-codes.org/">Henry Cohn’s table of spherical codes</a>, each row credited <q>Antoine Olivier, 2026.</q></span></p></div></div>
+
+    <div class="row"><div class="tag">Date</div><div class="val"><p>Submitted with four others on 19 October 2026. Henry Cohn has since improved those four himself (listed below).</p></div></div>
+
+    <div class="row"><div class="tag">Result</div><div class="val">
+      <p>A spherical code is a set of N points on the unit sphere in dimension d; the goal is to keep the largest cosine between any two points as small as possible. For these six (d, N) pairs, the codes improved on the table values read on 19 October 2026, before submission.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">Data</div><div class="val">
+      <p class="cap" id="cohn-cap">New maximum cosine (certified upper bound, 12 decimals), improvement (rounded; bar on a log scale from 10<sup>−10</sup> to 10<sup>−4</sup>) and table value before submission.</p>
+      <div class="data" role="region" aria-label="Spherical codes table, scrolls sideways" tabindex="0">
       <table aria-labelledby="cohn-title" aria-describedby="cohn-cap">
-        <thead><tr><th scope="col" class="num">d</th><th scope="col" class="num">N</th><th scope="col">New max cosine</th><th scope="col">Before</th><th scope="col">Improvement</th></tr></thead>
+        <thead><tr><th scope="col" class="num">d</th><th scope="col" class="num">N</th><th scope="col">New max cosine</th><th scope="col">Improvement</th><th scope="col">Before</th></tr></thead>
         <tbody>
-          <tr><td class="num">11</td><td class="num"><a href="https://spherical-codes.org/data/11/82" aria-label="d = 11, N = 82 in Cohn’s table">82</a></td><td>0.263018342364</td><td class="old">0.263018878676</td><td><span class="gain"><i style="--g:.62"></i>5.4e-7</span></td></tr>
-          <tr><td class="num">12</td><td class="num"><a href="https://spherical-codes.org/data/12/66" aria-label="d = 12, N = 66 in Cohn’s table">66</a></td><td>0.214718112242</td><td class="old">0.214727052210</td><td><span class="gain"><i style="--g:.82"></i>8.9e-6</span></td></tr>
-          <tr><td class="num">12</td><td class="num"><a href="https://spherical-codes.org/data/12/92" aria-label="d = 12, N = 92 in Cohn’s table">92</a></td><td>0.258276397340</td><td class="old">0.258374597677</td><td><span class="gain"><i style="--g:1"></i>9.8e-5</span></td></tr>
-          <tr><td class="num">13</td><td class="num"><a href="https://spherical-codes.org/data/13/72" aria-label="d = 13, N = 72 in Cohn’s table">72</a></td><td>0.205422579377</td><td class="old">0.205422584282</td><td><span class="gain"><i style="--g:.28"></i>4.9e-9</span></td></tr>
-          <tr><td class="num">13</td><td class="num"><a href="https://spherical-codes.org/data/13/95" aria-label="d = 13, N = 95 in Cohn’s table">95</a></td><td>0.244097860377</td><td class="old">0.244179109624</td><td><span class="gain"><i style="--g:.99"></i>8.1e-5</span></td></tr>
-          <tr><td class="num">14</td><td class="num"><a href="https://spherical-codes.org/data/14/76" aria-label="d = 14, N = 76 in Cohn’s table">76</a></td><td>0.189882980940</td><td class="old">0.189882981278</td><td><span class="gain"><i style="--g:.09"></i>3.4e-10</span></td></tr>
-          <tr><td class="num">14</td><td class="num"><a href="https://spherical-codes.org/data/14/80" aria-label="d = 14, N = 80 in Cohn’s table">80</a></td><td>0.195566522972</td><td class="old">0.195566565102</td><td><span class="gain"><i style="--g:.44"></i>4.2e-8</span></td></tr>
-          <tr><td class="num">15</td><td class="num"><a href="https://spherical-codes.org/data/15/75" aria-label="d = 15, N = 75 in Cohn’s table">75</a></td><td>0.168255719871</td><td class="old">0.168258837686</td><td><span class="gain"><i style="--g:.75"></i>3.1e-6</span></td></tr>
-          <tr><td class="num">17</td><td class="num"><a href="https://spherical-codes.org/data/17/83" aria-label="d = 17, N = 83 in Cohn’s table">83</a></td><td>0.149970576801</td><td class="old">0.149982620206</td><td><span class="gain"><i style="--g:.85"></i>1.2e-5</span></td></tr>
-          <tr><td class="num">17</td><td class="num"><a href="https://spherical-codes.org/data/17/84" aria-label="d = 17, N = 84 in Cohn’s table">84</a></td><td>0.149993159821</td><td class="old">0.149995256047</td><td><span class="gain"><i style="--g:.72"></i>2.1e-6</span></td></tr>
+          <tr><td class="num">11</td><td class="num"><a href="https://spherical-codes.org/data/11/82" aria-label="d = 11, N = 82 in Cohn’s table">82</a></td><td>0.263018342364</td><td><span class="gain"><i style="--g:.62"></i>5.4e-7</span></td><td class="old">0.263018878676</td></tr>
+          <tr><td class="num">12</td><td class="num"><a href="https://spherical-codes.org/data/12/66" aria-label="d = 12, N = 66 in Cohn’s table">66</a></td><td>0.214718112242</td><td><span class="gain"><i style="--g:.82"></i>8.9e-6</span></td><td class="old">0.214727052210</td></tr>
+          <tr><td class="num">12</td><td class="num"><a href="https://spherical-codes.org/data/12/92" aria-label="d = 12, N = 92 in Cohn’s table">92</a></td><td>0.258276397340</td><td><span class="gain"><i style="--g:1"></i>9.8e-5</span></td><td class="old">0.258374597677</td></tr>
+          <tr><td class="num">13</td><td class="num"><a href="https://spherical-codes.org/data/13/72" aria-label="d = 13, N = 72 in Cohn’s table">72</a></td><td>0.205422579377</td><td><span class="gain"><i style="--g:.28"></i>4.9e-9</span></td><td class="old">0.205422584282</td></tr>
+          <tr><td class="num">14</td><td class="num"><a href="https://spherical-codes.org/data/14/76" aria-label="d = 14, N = 76 in Cohn’s table">76</a></td><td>0.189882980940</td><td><span class="gain"><i style="--g:.09"></i>3.4e-10</span></td><td class="old">0.189882981278</td></tr>
+          <tr><td class="num">14</td><td class="num"><a href="https://spherical-codes.org/data/14/80" aria-label="d = 14, N = 80 in Cohn’s table">80</a></td><td>0.195566522972</td><td><span class="gain"><i style="--g:.44"></i>4.2e-8</span></td><td class="old">0.195566565102</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="also">Since improved by Henry Cohn: (13, 95), (15, 75), (17, 83) and (17, 84). All ten files and both checking programs: <a href="https://doi.org/10.5281/zenodo.23776897">doi:10.5281/zenodo.23776897</a>.</p>    </div></div>
+
+    <div class="row"><div class="tag">Method</div><div class="val">
+      <p>Local polishing by sequential linear programming. Most codes start from entries the table marked as needing more optimization; (12, 92) starts from Ilmari Vahteristo’s 93-point code with one point removed.</p>
+      <p>Each coordinate is an integer divided by 2<sup>52</sup>, so the largest cosine can be checked exactly. A checker written with Claude and an independent one by DeepSeek V4.1 Flash both confirmed every value. Whether any of these codes is optimal remains open.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>Computed in October 2026 with Claude Opus 5.5 (Anthropic) working as a coding agent in Claude Code under my direction. I take responsibility for the submission.</blockquote></div></div>
+  </article>
+
+  <article class="entry" id="ccd" aria-labelledby="ccd-title">
+    <div class="entry-head"><div class="id">Entry 3</div><h2 id="ccd-title">Six atomic clusters below the Cambridge Cluster Database</h2></div>
+
+    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark open" aria-hidden="true"></span><span>Sent on 22 October 2026 to Jonathan Doye and David Wales, who maintain the <a href="https://www-wales.ch.cam.ac.uk/~wales/CCD/">Cambridge Cluster Database</a>. No reply yet; the database pages are unchanged.</span></p></div></div>
+
+    <div class="row"><div class="tag">Result</div><div class="val">
+      <p>For two model potentials, the modified Dzugutov potential (mDz) and Z1, the database lists the lowest energy known for each number of atoms N. These six configurations have a lower energy than the listed one. Whether they are global minima is open.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">Data</div><div class="val">
+      <p class="cap" id="ccd-cap">Energies in the reduced units of each potential; ΔE is this work minus the listed energy.</p>
+      <div class="data" role="region" aria-label="Cluster energies table, scrolls sideways" tabindex="0">
+      <table aria-labelledby="ccd-title" aria-describedby="ccd-cap">
+        <thead><tr><th scope="col">Potential, N</th><th scope="col" class="num">Listed energy</th><th scope="col" class="num">This work</th><th scope="col" class="num">ΔE</th></tr></thead>
+        <tbody>
+          <tr><td>mDz 74</td><td class="num old">−180.982763</td><td class="num">−180.987553</td><td class="num">−0.004790</td></tr>
+          <tr><td>mDz 134</td><td class="num old">−343.386067</td><td class="num">−343.390040</td><td class="num">−0.003973</td></tr>
+          <tr><td>mDz 177</td><td class="num old">−462.579581</td><td class="num">−462.582660</td><td class="num">−0.003079</td></tr>
+          <tr><td>mDz 186</td><td class="num old">−487.786110</td><td class="num">−487.857776</td><td class="num">−0.071666</td></tr>
+          <tr><td>Z1 54</td><td class="num old">−146.333923</td><td class="num">−146.350095</td><td class="num">−0.016172</td></tr>
+          <tr><td>Z1 68</td><td class="num old">−185.275450</td><td class="num">−185.363426</td><td class="num">−0.087976</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="also">Coordinates and checking programs: <a href="https://doi.org/10.5281/zenodo.23775350">doi:10.5281/zenodo.23775350</a>.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">Method</div><div class="val">
+      <p>Basin-hopping, seeded from my best configurations with one atom more or one atom less. Interval arithmetic encloses the energy of each configuration and of the database’s own file: each new energy lies strictly below the listed one. A second checker written by DeepSeek V4.1 Flash agreed on all six.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>The search code was written with Claude Opus 5.5 (Anthropic) under my direction.</blockquote></div></div>
+  </article>
+
+  <article class="entry" id="stars" aria-labelledby="stars-title">
+    <div class="entry-head"><div class="id">Entry 4</div><h2 id="stars-title">Periods for five variable stars missing from VSX</h2></div>
+
+    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark open" aria-hidden="true"></span><span>Data archive published on Zenodo on 29 October 2026: <a href="https://doi.org/10.5281/zenodo.23534347">doi:10.5281/zenodo.23534347</a>. Not yet submitted to VSX; a note for the Research Notes of the AAS is in preparation.</span></p></div></div>
+
+    <div class="row"><div class="tag">Result</div><div class="val">
+      <p>A search of TESS light curves of 517 high-latitude stars found five periodic variables absent from the AAVSO International Variable Star Index (VSX). Three of them have no period or type in SIMBAD or VizieR either, apart from an automated fit at twice the period for TIC 243167066 (Green et al. 2023, not classified as variable); Maíz Apellániz et al. (2023) flag all three as variable from Gaia scatter alone. The other two were reported before. For TIC 436556517, timed eclipses give 2.2056 days where Thiemann et al. (2021) list 0.44 days; TIC 402964191 was scored but not selected by Green et al. (2023), and TESS shows a stable 0.25473-day term.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">Data</div><div class="val">
+      <p class="cap" id="stars-cap">VSX type codes: BY, BY Draconis (spotted dwarf); ROT, spotted rotating star; EA, Algol-type eclipsing binary; VAR, variable of unspecified type.</p>
+      <div class="data" role="region" aria-label="Variable stars table, scrolls sideways" tabindex="0">
+      <table aria-labelledby="stars-title" aria-describedby="stars-cap">
+        <thead><tr><th scope="col">Star</th><th scope="col">Type</th><th scope="col">Period (days)</th></tr></thead>
+        <tbody>
+          <tr><td>TIC 105616985</td><td>BY</td><td>0.6834 ± 0.0004</td></tr>
+          <tr><td>TIC 243167163</td><td>BY</td><td>0.4930 ± 0.0004</td></tr>
+          <tr><td>TIC 243167066</td><td>ROT</td><td>2.30 ± 0.09</td></tr>
+          <tr><td>TIC 436556517</td><td>EA</td><td>2.2056294 ± 0.0000024</td></tr>
+          <tr><td>TIC 402964191</td><td>VAR</td><td>0.25473 ± 0.00005, or 0.50945 if ellipsoidal</td></tr>
         </tbody>
       </table>
       </div>
     </div></div>
 
     <div class="row"><div class="tag">Method</div><div class="val">
-      <p>Local polishing by sequential linear programming. Eight codes start from entries the table marked as needing more optimization; (12, 92) and (13, 95) start from the codes with one more point by Ilmari Vahteristo and Luke Granto, minus one point.</p>
-      <p>Coordinates were scaled by 2<sup>52</sup> and rounded to integers. Two independent programs (Python and PARI/GP) then checked in exact integer arithmetic that the largest cosine, which does not depend on scale, is at most the value shown. These are computational records, not proofs of optimality.</p>
+      <p>TIC 105616985: period from seven years of ZTF photometry, confirmed in four TESS sectors. TIC 243167163: found in three sectors of TESS light curves processed by the TESS Science Processing Operations Center (TESS-SPOC), 0.4928 to 0.4932 days; the adopted value comes from ZTF, where the signal is weak. TIC 243167066 and TIC 402964191: TESS-SPOC, with the same period in the Quick-Look Pipeline (QLP) light curves, built from the same TESS images. TIC 436556517: 28 timed eclipses in three TESS sectors from 2019 to 2024.</p>
+      <p>DeepSeek V4.1 Flash wrote its own period search without seeing my periods. It was run, with a one-line fix for a newer NumPy, on the same data on 29 October 2026; the archive reports where it agrees and where it does not.</p>
     </div></div>
 
-    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>Computed in October 2026 with Claude Opus 5.5 (Anthropic) working as a coding agent in Claude Code under my direction. I take responsibility for the submission.</blockquote></div></div>
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>The analysis was done with Claude Opus 5.5 (Anthropic) in Claude Code under my direction.</blockquote></div></div>
   </article>
 
-  <article class="entry" id="brouwer" aria-labelledby="brouwer-title">
-    <div class="entry-head"><div class="id">Entry 2</div><h2 id="brouwer-title">Ten improved lower bounds for constant-weight binary codes</h2></div>
+  <article class="entry" id="oeis" aria-labelledby="oeis-title">
+    <div class="entry-head"><div class="id">Entry 5</div><h2 id="oeis-title">Five new terms in two OEIS sequences</h2></div>
 
-    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Listed in <a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, credit line <q>Ol: Antoine Olivier, emails 2026-10-10, 2026-10-19, with 2+10 new codes.</q></span></p></div></div>
+    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>a(9) = 249696 and a(10) = 11498629 of <a href="https://oeis.org/A277203">A277203</a>, approved by the OEIS editors on 27 October 2026.</span></p><p class="status"><span class="mark" aria-hidden="true"></span><span>a(8) = 9819, a(9) = 237641 and a(10) = 11236576 of <a href="https://oeis.org/A321911">A321911</a>, approved on 28 October 2026.</span></p></div></div>
 
-    <div class="row"><div class="tag">Date</div><div class="val"><p>Sent on 10 and 19 October 2026 and added by the maintainer. Ten of the twelve codes sent remain credited in the table on 20 October 2026.</p></div></div>
+    <div class="row"><div class="tag">Date</div><div class="val"><p>Sent on 20 October 2026.</p></div></div>
 
     <div class="row"><div class="tag">Result</div><div class="val">
-      <p>A(n, d, w) is the largest number of binary words of length n and weight w with pairwise Hamming distance at least d. Each line below gives the new lower bound and the value the table listed when the code was sent.</p>
-    </div></div>
-
-    <div class="row"><div class="tag">Data</div><div class="val">
-      <ul class="bounds" aria-label="Lower bounds credited Ol in the table, with the previous value">
-        <li>A(22, 6, 10) ≥ 2184 <span class="old">was 2183</span></li>
-        <li>A(27, 6, 11) ≥ 19344 <span class="old">was 19305</span></li>
-        <li>A(26, 8, 11) ≥ 2044 <span class="old">was 2042</span></li>
-        <li>A(27, 8, 9) ≥ 1044 <span class="old">was 1029</span></li>
-        <li>A(37, 8, 8) ≥ 2846 <span class="old">was 2845</span></li>
-        <li>A(40, 8, 8) ≥ 3687 <span class="old">was 3683</span></li>
-        <li>A(28, 10, 14) ≥ 817 <span class="old">was 814</span></li>
-        <li>A(30, 10, 11) ≥ 514 <span class="old">was 512</span></li>
-        <li>A(30, 10, 13) ≥ 940 <span class="old">was 936</span></li>
-        <li>A(32, 10, 9) ≥ 307 <span class="old">was 305</span></li>
-      </ul>
+      <p>A277203 counts the distinct chromatic symmetric functions of graphs on n vertices; A321911 counts them for connected graphs. The sequences previously stopped at n = 8 and n = 7.</p>
     </div></div>
 
     <div class="row"><div class="tag">Method</div><div class="val">
-      <p>Codes start from the table’s own code for the same cell and enlarge it. An integer linear program replaces a group of neighbouring words with a larger group; for A(27, 6, 11), 39 words could be added to the table’s code without removing any. Each file was checked by exact computation of length, weight, distinct words and minimum distance before sending.</p>
+      <p>Two graphs have the same chromatic symmetric function exactly when they have the same number of stable partitions of each type. Every graph on n vertices was generated, with nauty’s geng and with a second generator, and the distinct type vectors were counted. Two exact programs agreed on every term.</p>
     </div></div>
 
-    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>This work was carried out with Claude Opus 5.5 (Anthropic) in Claude Code.</blockquote></div></div>
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>The enumeration programs were written with Claude (Anthropic) under my direction.</blockquote></div></div>
   </article>
 
-  <article class="entry" id="kappa" aria-labelledby="kappa-title">
-    <div class="entry-head"><div class="id">Reproducibility</div><h2 id="kappa-title">Reproduction checks on four integer-multiplication pull requests</h2></div>
+  <article class="entry" id="checks" aria-labelledby="checks-title">
+    <div class="entry-head"><div class="id">Checks</div><h2 id="checks-title">Checks of other people’s work</h2></div>
 
-    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Credited in <a href="https://github.com/CrocSwap/integer-mult-bounds/blob/main/CONTRIBUTORS.md">CONTRIBUTORS.md</a> of the community project CrocSwap/integer-mult-bounds, for <a href="https://github.com/CrocSwap/integer-mult-bounds/pull/214">pull request #214</a>.</span></p></div></div>
-
-    <div class="row"><div class="tag">Date</div><div class="val"><p>Opened 9 October 2026; closed without merging on 14 October 2026, with the credit kept.</p></div></div>
-
-    <div class="row"><div class="tag">Result</div><div class="val">
-      <p>The project improves the exponent κ in an O(n (log n)<sup>1−κ</sup>) bound for integer multiplication, within its stated conditional framework. I reran selected verification programs from four pull requests at recorded commits. Checks for #207 and #197 and a diagnostic for #199 reproduced. For #202, one check passed and another failed on a hash mismatch documented in the report. These runs do not validate the full theoretical framework. No new κ value.</p>
+    <div class="row"><div class="tag"><span class="sym">κ</span> bounds</div><div class="val">
+      <p>For the community project <a href="https://github.com/CrocSwap/integer-mult-bounds">CrocSwap/integer-mult-bounds</a>, which improves the exponent κ in a conditional O(n (log n)<sup>1−κ</sup>) bound for integer multiplication, I reran selected verification programs from four pull requests at recorded commits. Checks for #207 and #197 and a diagnostic for #199 reproduced; for #202, one check passed and another failed on a hash mismatch. I reported the reruns in <a href="https://github.com/CrocSwap/integer-mult-bounds/pull/214">pull request #214</a>, closed without merging on 14 October 2026; it is credited in <a href="https://github.com/CrocSwap/integer-mult-bounds/blob/main/CONTRIBUTORS.md">CONTRIBUTORS.md</a>. The reruns cover the programs only and give no new κ value.</p>
     </div></div>
 
-    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>I did this with help from Claude (Anthropic) agents; the runs were done locally.</blockquote></div></div>
+    <div class="row"><div class="tag">Exoplanets</div><div class="val">
+      <p>In the <a href="https://github.com/eumemic/exoplanets/issues/1">eumemic exoplanet catalogue</a>, the TRICERATOPS runs used a wrong input for TIC 160420269. I reported it on 15 and 18 October 2026; the author fixed the catalogue, and 55 signals changed tier.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>Both checks were done with Claude (Anthropic) agents; the runs were done locally.</blockquote></div></div>
   </article>
 
   <section class="entry pending" id="next" aria-labelledby="next-title">
-    <div class="entry-head"><div class="id">In progress</div><h2 id="next-title">Not yet public</h2></div>
-    <div class="row"><div class="tag">Slots</div><div class="val">
+    <div class="entry-head"><div class="id">Waiting</div><h2 id="next-title">Sent, no answer yet</h2></div>
+    <div class="row"><div class="tag">Items</div><div class="val">
       <ul class="slots">
-        <li><span class="mark open" aria-hidden="true"></span><span><b>OEIS.</b> New terms for sequences A321911 and A277203, computed and awaiting submission.</span></li>
-        <li><span class="mark open" aria-hidden="true"></span><span><b>Variable stars from TESS.</b> A research note and its data archive; Zenodo DOI to come.</span></li>
-        <li><span class="mark open" aria-hidden="true"></span><span><b>ORCID.</b> Identifier to come.</span></li>
+        <li><span class="mark open" aria-hidden="true"></span><span><b>Rectilinear crossing numbers of K<sub>n</sub>.</b> Straight-line drawings with fewer crossings than the 2015 table for 38 values of n between 40 and 100, each count confirmed by three separate programs. Sent to the table’s maintainer on 22 October 2026.</span></li>
       </ul>
     </div></div>
   </section>
 
-  <footer>Last checked against the public tables on 20 October 2026.</footer>
+  <footer>Page updated on 31 October 2026.</footer>
 </main>
 </body>
 </html>
