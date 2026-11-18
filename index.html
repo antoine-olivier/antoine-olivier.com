@@ -92,7 +92,7 @@
   td a { text-decoration: underline dotted; text-underline-offset: 0.2em; }
   td a:hover, td a:focus-visible { text-decoration: underline; }
   .data:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .old { color: var(--muted); }
+  .old, .bound { color: var(--muted); }
   .gain { display: flex; align-items: center; gap: 0.6rem; }
   .gain i { display: block; height: 0.5rem; background: var(--accent); width: calc(var(--g) * 6rem); }
   .bounds { display: grid; grid-template-columns: repeat(auto-fill, minmax(18.5rem, 1fr)); gap: 0 1.5rem; margin: 0; padding: 0; list-style: none; font: 0.9375rem/1.4 var(--mono); }
@@ -157,7 +157,7 @@
       <ul class="ledger">
         <li><span class="n">9</span><span><a href="#brouwer"><b>Improved lower bounds</b> for constant-weight binary codes</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, cells marked <code>Ol</code></span></span></li>
         <li><span class="n">5</span><span><a href="#cohn"><b>Spherical codes</b> in dimensions 11 to 14</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://spherical-codes.org/">Henry Cohn’s table of spherical codes</a>, credited “Antoine Olivier, 2026.”</span></span></li>
-        <li><span class="n">3</span><span><a href="https://cohn.mit.edu/stealth"><b>Stealthy configurations</b> in dimensions 18, 28 and 30</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://cohn.mit.edu/stealth">Henry Cohn’s table of stealth radius bounds</a>, credited as a personal communication from Antoine Olivier, 2026</span></span></li>
+        <li><span class="n">3</span><span><a href="#stealth"><b>Stealthy configurations</b> in dimensions 18, 28 and 30</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://cohn.mit.edu/stealth">Henry Cohn’s table of stealth radius bounds</a>, credited as a personal communication from Antoine Olivier, 2026</span></span></li>
         <li class="wait"><span class="n">6</span><span><a href="#ccd"><b>Atomic clusters</b> with lower energy than the Cambridge Cluster Database</a><span class="src"><span class="mark open" aria-hidden="true"></span>Sent to the database authors on 22 October 2026, not listed yet</span></span></li>
         <li class="wait"><span class="n">5</span><span><a href="#stars"><b>Variable stars</b> missing from VSX, with their periods and types</a><span class="src"><span class="mark open" aria-hidden="true"></span>Data archive on Zenodo, not yet submitted to VSX</span></span></li>
         <li><span class="n">5</span><span><a href="#oeis"><b>New terms</b> of OEIS sequences A277203 and A321911</a><span class="src"><span class="mark" aria-hidden="true"></span>Approved by the OEIS editors on 27 and 28 October 2026</span></span></li>
@@ -165,7 +165,7 @@
       <p class="also"><a href="#checks">Checks of other people’s work</a>: reruns of four integer-multiplication pull requests, credited in CONTRIBUTORS.md, and an input error in an exoplanet catalogue, corrected by its author.</p>
       <p class="also">Also <a href="#next">submitted</a>: rectilinear crossing numbers of K<sub>n</sub> for 38 values of n, sent to the table’s maintainer on 22 October 2026.</p>
       <p class="also">Since beaten: kissing number in dimension 37, lower bound 500008 (now 505638, Kravatskiy, in <a href="https://cohn.mit.edu/kissing-numbers">Henry Cohn’s kissing-number table</a> read on 17 November 2026). It was built from Lin’s configuration by replacing three of its supports, which added 192 vectors in all, and archived at <a href="https://doi.org/10.5281/zenodo.23569153">doi:10.5281/zenodo.23569153</a>.</p>
-      <p class="checked">Pages read on 17 November 2026 (Brouwer, Cambridge, OEIS, Cohn’s kissing numbers, spherical codes and stealth table, eumemic catalogue) and 3 November 2026 (CONTRIBUTORS.md).</p>
+      <p class="checked">Pages read on 17 November 2026 (Brouwer, Cambridge, OEIS, Cohn’s kissing numbers and spherical codes, eumemic catalogue), 18 November 2026 (Cohn’s stealth table) and 3 November 2026 (CONTRIBUTORS.md).</p>
     </div>
   </section>
 
@@ -239,8 +239,41 @@
     <div class="row"><div class="tag">AI</div><div class="val"><blockquote>Computed in October 2026 with Claude Opus 5.5 (Anthropic) working as a coding agent in Claude Code under my direction. I take responsibility for the submission.</blockquote></div></div>
   </article>
 
+  <article class="entry" id="stealth" aria-labelledby="stealth-title">
+    <div class="entry-head"><div class="id">Entry 3</div><h2 id="stealth-title">Three stealthy configurations in dimensions 18, 28 and 30</h2></div>
+
+    <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Listed in <a href="https://cohn.mit.edu/stealth">Henry Cohn’s table of stealth radius bounds</a>, in rows 18, 28 and 30, credited to Antoine Olivier as a personal communication, 2026. A personal communication is not a published or refereed paper.</span></p></div></div>
+
+    <div class="row"><div class="tag">Result</div><div class="val">
+      <p>The stealth radius of a periodic configuration, scaled to one point per unit volume, is the smallest nonzero frequency at which its Fourier transform does not vanish. The larger it is, the stealthier the configuration (<a href="https://arxiv.org/abs/2609.03121">Cohen, Cohn and Viazovska, arXiv:2609.03121</a>).</p>
+      <p>These three configurations are not lattices. Each is a formal dual (<a href="https://arxiv.org/abs/1306.6796">arXiv:1306.6796</a>) of a record sphere packing of Bierbrauer and Edel or of Vardy. In dimensions 18, 28 and 30, the table’s lower bound for the largest stealth radius, the best it lists, comes from these configurations. Whether any of them is the stealthiest possible is open: the table’s upper bounds are higher.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">Data</div><div class="val">
+      <p class="cap" id="stealth-cap">From Cohn’s table, read on 18 November 2026, cut (not rounded) after the twelfth decimal. The credit reads <q>Antoine Olivier, Formal duals of the Bierbrauer–Edel and Vardy record packings in dimensions 18, 28 and 30, personal communication, 2026</q>. The # column is the number of translates of the period lattice; radii are at unit particle density.</p>
+      <div class="data" role="region" aria-label="Stealth radii table, scrolls sideways" tabindex="0">
+      <table aria-labelledby="stealth-title" aria-describedby="stealth-cap">
+        <thead><tr><th scope="col" class="num">d</th><th scope="col" class="num">#</th><th scope="col" class="num">Stealth radius</th><th scope="col" class="num">Upper bound</th></tr></thead>
+        <tbody>
+          <tr><td class="num">18</td><td class="num">512</td><td class="num">√3 = 1.732050807568…</td><td class="num bound">1.808981906630…</td></tr>
+          <tr><td class="num">28</td><td class="num">8192</td><td class="num">2</td><td class="num bound">2.115690526460…</td></tr>
+          <tr><td class="num">30</td><td class="num">8192</td><td class="num">2</td><td class="num bound">2.170738714422…</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="also">The table’s <a href="https://dspace.mit.edu/handle/1721.1/178306">data archive at MIT DSpace</a> holds the Gram matrix and translation vectors of the three configurations, with this credit (file <code>recordstealth.toml</code>, read on 18 November 2026). The note, the checking programs and the certificates are not archived publicly yet.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">Method</div><div class="val">
+      <p>Cohen, Cohn and Viazovska construct a formal dual of Vardy’s packing in dimension 20. Following them, Claude searched for a formal dual of each record packing in <a href="https://cohn.mit.edu/sphere-packing">Cohn’s table of sphere packings</a>, starting from its coordinates. A subset of a finite abelian group that satisfies the two identities of formal duality gives such a dual; the identities are checked in exact integer arithmetic. The stealth radius of the dual then follows from the packing’s center density, by the principle of Cohen, Cohn and Viazovska.</p>
+      <p>Two programs written with Claude check the identities. In dimensions 28 and 30 the direct character sums cover 4096 of the 2²⁶ characters; the Walsh transform and the pair counts cover all of them. Both programs start from the same reduction of the packing’s coordinates to a finite group, so that step is not checked independently.</p>
+    </div></div>
+
+    <div class="row"><div class="tag">AI</div><div class="val"><blockquote>The computations, proofs and checks were done by Claude Opus 5.5 (Anthropic) in Claude Code, which asked me multiple-choice questions along the way. GPT-6 Astra (OpenAI) also reviewed the proof that such a subset gives a formal dual of the packing. No human referee has read that proof.</blockquote></div></div>
+  </article>
+
   <article class="entry" id="ccd" aria-labelledby="ccd-title">
-    <div class="entry-head"><div class="id">Entry 3</div><h2 id="ccd-title">Six atomic clusters below the Cambridge Cluster Database</h2></div>
+    <div class="entry-head"><div class="id">Entry 4</div><h2 id="ccd-title">Six atomic clusters below the Cambridge Cluster Database</h2></div>
 
     <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark open" aria-hidden="true"></span><span>Sent on 22 October 2026 to Jonathan Doye and David Wales, who maintain the <a href="https://www-wales.ch.cam.ac.uk/~wales/CCD/">Cambridge Cluster Database</a>. No reply yet; the database pages were unchanged on 17 November 2026.</span></p></div></div>
 
@@ -274,7 +307,7 @@
   </article>
 
   <article class="entry" id="stars" aria-labelledby="stars-title">
-    <div class="entry-head"><div class="id">Entry 4</div><h2 id="stars-title">Periods for five variable stars missing from VSX</h2></div>
+    <div class="entry-head"><div class="id">Entry 5</div><h2 id="stars-title">Periods for five variable stars missing from VSX</h2></div>
 
     <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark open" aria-hidden="true"></span><span>Data archive published on Zenodo on 29 October 2026: <a href="https://doi.org/10.5281/zenodo.23534347">doi:10.5281/zenodo.23534347</a>. Not yet submitted to VSX; a note for the Research Notes of the AAS is in preparation.</span></p></div></div>
 
@@ -308,7 +341,7 @@
   </article>
 
   <article class="entry" id="oeis" aria-labelledby="oeis-title">
-    <div class="entry-head"><div class="id">Entry 5</div><h2 id="oeis-title">Five new terms in two OEIS sequences</h2></div>
+    <div class="entry-head"><div class="id">Entry 6</div><h2 id="oeis-title">Five new terms in two OEIS sequences</h2></div>
 
     <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>a(9) = 249696 and a(10) = 11498629 of <a href="https://oeis.org/A277203">A277203</a>, approved by the OEIS editors on 27 October 2026.</span></p><p class="status"><span class="mark" aria-hidden="true"></span><span>a(8) = 9819, a(9) = 237641 and a(10) = 11236576 of <a href="https://oeis.org/A321911">A321911</a>, approved on 28 October 2026.</span></p></div></div>
 
@@ -348,7 +381,7 @@
     </div></div>
   </section>
 
-  <footer>Page updated on 17 November 2026.</footer>
+  <footer>Page updated on 18 November 2026.</footer>
 </main>
 </body>
 </html>
