@@ -155,7 +155,7 @@
     <div class="val">
       <p class="checked key-top"><span class="key"><span class="mark" aria-hidden="true"></span>listed in a public table or approved by its editors</span><span class="key"><span class="mark open" aria-hidden="true"></span>sent or archived, not listed yet</span></p>
       <ul class="ledger">
-        <li><span class="n">9</span><span><a href="#brouwer"><b>Improved lower bounds</b> for constant-weight binary codes</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, cells marked <code>Ol</code></span></span></li>
+        <li><span class="n">8</span><span><a href="#brouwer"><b>Improved lower bounds</b> for constant-weight binary codes</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, cells marked <code>Ol</code></span></span></li>
         <li><span class="n">5</span><span><a href="#cohn"><b>Spherical codes</b> in dimensions 11 to 14</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://spherical-codes.org/">Henry Cohn’s table of spherical codes</a>, credited “Antoine Olivier, 2026.”</span></span></li>
         <li><span class="n">3</span><span><a href="https://cohn.mit.edu/stealth"><b>Stealthy configurations</b> in dimensions 18, 28 and 30</a><span class="src"><span class="mark" aria-hidden="true"></span><a href="https://cohn.mit.edu/stealth">Henry Cohn’s table of stealth radius bounds</a>, credited as a personal communication from Antoine Olivier, 2026</span></span></li>
         <li class="wait"><span class="n">6</span><span><a href="#ccd"><b>Atomic clusters</b> with lower energy than the Cambridge Cluster Database</a><span class="src"><span class="mark open" aria-hidden="true"></span>Sent to the database authors on 22 October 2026, not listed yet</span></span></li>
@@ -165,16 +165,16 @@
       <p class="also"><a href="#checks">Checks of other people’s work</a>: reruns of four integer-multiplication pull requests, credited in CONTRIBUTORS.md, and an input error in an exoplanet catalogue, corrected by its author.</p>
       <p class="also">Also <a href="#next">submitted</a>: rectilinear crossing numbers of K<sub>n</sub> for 38 values of n, sent to the table’s maintainer on 22 October 2026.</p>
       <p class="also">Since beaten: kissing number in dimension 37, lower bound 500008 (now 505638, Kravatskiy, in <a href="https://cohn.mit.edu/kissing-numbers">Henry Cohn’s kissing-number table</a> read on 17 November 2026). It was built from Lin’s configuration by replacing three of its supports, which added 192 vectors in all, and archived at <a href="https://doi.org/10.5281/zenodo.23569153">doi:10.5281/zenodo.23569153</a>.</p>
-      <p class="checked">Pages read on 17 November 2026 (Brouwer, Cambridge, OEIS, Cohn’s kissing numbers, spherical codes and stealth table, eumemic catalogue) and 3 November 2026 (CONTRIBUTORS.md).</p>
+      <p class="checked">Pages read on 20 November 2026 (Brouwer), 17 November 2026 (Cambridge, OEIS, Cohn’s kissing numbers, spherical codes and stealth table, eumemic catalogue) and 3 November 2026 (CONTRIBUTORS.md).</p>
     </div>
   </section>
 
   <article class="entry" id="brouwer" aria-labelledby="brouwer-title">
-    <div class="entry-head"><div class="id">Entry 1</div><h2 id="brouwer-title">Nine improved lower bounds for constant-weight binary codes</h2></div>
+    <div class="entry-head"><div class="id">Entry 1</div><h2 id="brouwer-title">Eight improved lower bounds for constant-weight binary codes</h2></div>
 
     <div class="row"><div class="tag">Status</div><div class="val"><p class="status"><span class="mark" aria-hidden="true"></span><span>Listed in <a href="https://aeb.win.tue.nl/codes/Andw.html">Andries Brouwer’s table of constant-weight codes</a>, cells marked <code>Ol</code> and credited to Antoine Olivier.</span></p></div></div>
 
-    <div class="row"><div class="tag">Date</div><div class="val"><p>Sent on 10, 19 and 22 October 2026 and added by the maintainer. Six other bounds I sent were accepted, then beaten by other authors (listed below).</p></div></div>
+    <div class="row"><div class="tag">Date</div><div class="val"><p>Sent on 10, 19 and 22 October 2026 and added by the maintainer. Seven other bounds I sent were accepted, then beaten by other authors (listed below).</p></div></div>
 
     <div class="row"><div class="tag">Result</div><div class="val">
       <p>A(n, d, w) is the largest number of binary words of length n and weight w with pairwise Hamming distance at least d. Each line gives the new lower bound and the value the table listed when the code was sent.</p>
@@ -182,7 +182,6 @@
 
     <div class="row"><div class="tag">Data</div><div class="val">
       <ul class="bounds" aria-label="Lower bounds credited Ol in the table, with the previous value">
-        <li>A(22, 6, 10) ≥ 2184 <span class="old">was 2183</span></li>
         <li>A(26, 8, 11) ≥ 2044 <span class="old">was 2042</span></li>
         <li>A(27, 6, 11) ≥ 19344 <span class="old">was 19305</span></li>
         <li>A(27, 8, 9) ≥ 1044 <span class="old">was 1029</span></li>
@@ -192,7 +191,7 @@
         <li>A(30, 10, 13) ≥ 940 <span class="old">was 936</span></li>
         <li>A(32, 10, 9) ≥ 307 <span class="old">was 305</span></li>
       </ul>
-      <p class="also">Since beaten: A(25, 6, 11) ≥ 8720 (now 8733, Chang), A(28, 8, 11) ≥ 3791 (now 3832, Chang), A(29, 8, 8) ≥ 1062 (now 1064, Huang), A(33, 8, 8) ≥ 1806 (now 1852, Lin), A(37, 8, 8) ≥ 2846 (now 2860, Lin), A(40, 8, 8) ≥ 3687 (now 3752, Wu).</p>
+      <p class="also">Since beaten: A(22, 6, 10) ≥ 2184 (now 2186, Milshtein), A(25, 6, 11) ≥ 8720 (now 8733, Chang), A(28, 8, 11) ≥ 3791 (now 3832, Chang), A(29, 8, 8) ≥ 1062 (now 1064, Huang), A(33, 8, 8) ≥ 1806 (now 1852, Lin), A(37, 8, 8) ≥ 2846 (now 2860, Lin), A(40, 8, 8) ≥ 3687 (now 3752, Wu).</p>
       <p class="also">Code files and checking programs: <a href="https://doi.org/10.5281/zenodo.23776838">doi:10.5281/zenodo.23776838</a>.</p>
     </div></div>
 
@@ -348,7 +347,7 @@
     </div></div>
   </section>
 
-  <footer>Page updated on 17 November 2026.</footer>
+  <footer>Page updated on 20 November 2026.</footer>
 </main>
 </body>
 </html>
