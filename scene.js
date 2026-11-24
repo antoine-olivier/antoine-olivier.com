@@ -2,6 +2,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RESULTS } from './results.js';
 import { createSafetySpecimen, createMathSpecimen, createAzertySpecimen, createGlassBell, makeSafetyLab } from './specimens.js';
 
@@ -26,6 +27,8 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.autoUpdate = false;
+renderer.shadowMap.needsUpdate = true;
 renderer.setClearColor(0x141a33, 1);
 
 const scene = new THREE.Scene();
@@ -160,7 +163,8 @@ POS.forEach((p) => {
 scene.add(new THREE.HemisphereLight(0x4b5db5, 0x0c0f1f, 1.15));
 const dawn = new THREE.SpotLight(0xffb47d, 520, 32, 0.45, 0.55, 1.55);
 dawn.position.set(-7.2, 5.2, 7.2); dawn.target.position.set(-0.2, -0.1, 0);
-dawn.map = windowGobo(); dawn.castShadow = true; dawn.shadow.mapSize.set(2048, 2048);
+const narrowScreen = innerWidth <= 900;
+dawn.map = windowGobo(); dawn.castShadow = true; dawn.shadow.mapSize.set(narrowScreen ? 1024 : 2048, narrowScreen ? 1024 : 2048);
 dawn.shadow.bias = -0.0007; dawn.shadow.normalBias = 0.045; dawn.shadow.radius = 4;
 scene.add(dawn, dawn.target);
 
@@ -169,11 +173,17 @@ deskPool.position.set(2.25, 0.75, -0.05); deskPool.target.position.set(1.5, benc
 scene.add(deskPool, deskPool.target);
 
 const pmrem = new THREE.PMREMGenerator(renderer);
-const envReady = new HDRLoader().loadAsync('./assets/hdr/museum_of_ethnography_1k.hdr').then((hdr) => {
-  scene.environment = pmrem.fromEquirectangular(hdr).texture;
-  scene.environmentIntensity = 0.36;
-  hdr.dispose();
-}).catch(() => {});
+const useLiteEnv = narrowScreen || Boolean(navigator.connection && navigator.connection.saveData);
+const envReady = useLiteEnv
+  ? Promise.resolve().then(() => {
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+      scene.environmentIntensity = 0.34;
+    })
+  : new HDRLoader().loadAsync('./assets/hdr/museum_of_ethnography_1k.hdr').then((hdr) => {
+      scene.environment = pmrem.fromEquirectangular(hdr).texture;
+      scene.environmentIntensity = 0.36;
+      hdr.dispose();
+    }).catch(() => {});
 
 // Spherical damped camera orbit state (works before clicking any bell jar AND while inspecting a specimen!)
 const orbit = { yaw: 0, pitch: 0.09, dist: 9.75, target: new THREE.Vector3(0.05, 0.08, 0) };
@@ -225,13 +235,17 @@ function clampOrbit() {
 
 function frameAll() {
   const wide = innerWidth > 900;
+  const wantFov = wide ? 27 : 39;
+  if (camera.fov !== wantFov) {
+    camera.fov = wantFov;
+    camera.updateProjectionMatrix();
+  }
   if (wide) {
     orbitWant.target.set(0.05, 0.08, 0);
     orbitDefault.yaw = 0; orbitDefault.pitch = 0.09; orbitDefault.dist = 9.75;
   } else {
-    const p = POS.find((q) => q.id === mobileFocus) || POS[0];
-    orbitWant.target.set(p.x, 0.24, 0.02);
-    orbitDefault.yaw = 0; orbitDefault.pitch = 0.09; orbitDefault.dist = 6.9;
+    orbitWant.target.set(-0.25, 0.05, 0);
+    orbitDefault.yaw = 0; orbitDefault.pitch = 0.09; orbitDefault.dist = 10.6;
   }
   orbitWant.yaw = orbitDefault.yaw;
   orbitWant.pitch = orbitDefault.pitch;
@@ -284,6 +298,10 @@ addEventListener('pointermove', (e) => {
 });
 
 const nav = document.querySelector('.tags');
+nav.innerHTML = '';
+root.classList.remove('diorama-mode');
+const btn3d = document.querySelector('.hud-3d');
+if (btn3d) btn3d.hidden = true;
 const drawer = document.getElementById('drawer');
 const body = drawer.querySelector('.drawer-body');
 const closeBtn = drawer.querySelector('.drawer-close');
@@ -497,11 +515,13 @@ function loop() {
   lampGlow += (lampGoal - lampGlow) * k;
   deskPool.intensity = 18 * lampGlow;
   lBulbMat.emissiveIntensity = 0.06 + 2.14 * lampGlow;
+  let shadowDirty = false;
   if (!reduced && (Math.abs(lampNod) > 0.0005 || Math.abs(lampNodVel) > 0.0005)) {
     const f = -lampNod * 90 - lampNodVel * 12;
     lampNodVel += f * dt;
     lampNod += lampNodVel * dt;
     lShade.rotation.z = baseShadeRotZ + lampNod * 0.09;
+    shadowDirty = true;
   } else {
     lShade.rotation.z = baseShadeRotZ;
   }
@@ -509,12 +529,14 @@ function loop() {
   for (const [id, b] of Object.entries(bells)) {
     const isHoverPeek = !openId && hoverId === id && !drag.active && !reduced;
     const goal = id === openId ? 1.55 : (isHoverPeek ? 0.11 : 0);
+    if (Math.abs(goal - b.lift) > 0.008) shadowDirty = true;
     b.lift += (goal - b.lift) * k;
     b.group.position.y = b.baseY + b.lift;
     const baseInt = id === 'azerty' ? 2.5 : 13;
     const targetInt = id === openId ? baseInt * 1.7 : (isHoverPeek ? baseInt * 1.28 : baseInt);
     spots[id].intensity += (targetInt - spots[id].intensity) * k;
   }
+  if (shadowDirty) renderer.shadowMap.needsUpdate = true;
 
   const effYaw = orbit.yaw + pointer.sx * 0.028;
   const effPitch = Math.max(0.02, orbit.pitch - pointer.sy * 0.015);
@@ -526,7 +548,7 @@ function loop() {
   camera.lookAt(orbit.target);
   renderer.render(scene, camera);
 
-  if (!openId) {
+  if (!openId && innerWidth > 900) {
     const W = innerWidth, H = innerHeight;
     const placed = anchors.map((a, i) => {
       v.copy(a).project(camera);

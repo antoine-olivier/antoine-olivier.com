@@ -14,6 +14,7 @@
 </head>
 <body>
 <canvas id="scene" aria-hidden="true"></canvas>
+<section class="diorama" id="diorama" aria-label="Cabinet des Cloches"></section>
 
 <header class="plate">
   <p class="kicker">Independent researcher · France</p>
@@ -31,6 +32,7 @@
 <nav class="tags" aria-label="Specimens under glass"></nav>
 
 <div class="studio-hud" aria-label="Studio controls">
+  <button class="hud-btn hud-3d" type="button" hidden title="Load interactive 3D studio">3D studio</button>
   <button class="hud-btn hud-reset" type="button" hidden title="Reset camera perspective (R)">Reset view</button>
   <button class="hud-btn hud-lamp" type="button" aria-pressed="true" title="Toggle architect lamp (L)">Lamp on</button>
 </div>
@@ -119,7 +121,17 @@
 </main>
 
 <noscript><style>.plain{display:block!important}</style></noscript>
-<script type="module" src="scene.js"></script>
+<script type="module">
+const p = new URLSearchParams(location.search);
+const force3d = p.has('3d') || p.has('shot');
+const lite = !force3d && (matchMedia('(max-width: 900px)').matches || Boolean(navigator.connection && navigator.connection.saveData) || p.has('lite'));
+if (lite) {
+  document.documentElement.classList.add('diorama-mode');
+  import('./mobile-diorama.js');
+} else {
+  import('./scene.js');
+}
+</script>
 </body>
 </html>
 
